@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Aritmética</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <style>
+        .container {
+            width: 300px;
+            margin: 100px auto;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        input, select {
+            margin: 10px;
+            padding: 10px;
+            width: 80%;
+            font-size: 16px;
+        }
+        .result {
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div id="app" class="container">
+    <h1>Calculadora Aritmética</h1>
+    <input type="number" v-model="numero1" placeholder="Primeiro número" />
+    <input type="number" v-model="numero2" placeholder="Segundo número" />
+    
+    <select v-model="operacao">
+        <option value="+">Soma</option>
+        <option value="-">Subtração</option>
+        <option value="*">Multiplicação</option>
+        <option value="/">Divisão</option>
+    </select>
+    
+    <div class="result">
+        Resultado: {{ resultado }}
+    </div>
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            numero1: 0,
+            numero2: 0,
+            operacao: '+'
+        },
+        computed: {
+            resultado() {
+                let num1 = parseFloat(this.numero1);
+                let num2 = parseFloat(this.numero2);
+                
+                if (isNaN(num1) || isNaN(num2)) {
+                    return 'Informe números válidos';
+                }
+
+                switch (this.operacao) {
+                    case '+':
+                        return num1 + num2;
+                    case '-':
+                        return num1 - num2;
+                    case '*':
+                        return num1 * num2;
+                    case '/':
+                        return num2 !== 0 ? num1 / num2 : 'Divisão por zero não permitida';
+                    default:
+                        return 'Operação inválida';
+                }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
